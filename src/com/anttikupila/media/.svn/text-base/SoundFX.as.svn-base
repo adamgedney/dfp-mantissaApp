@@ -1,0 +1,196 @@
+package com.anttikupila.media {
+	import flash.events.Event;	import flash.events.SampleDataEvent;	import flash.events.TimerEvent;	import flash.media.Sound;	import flash.media.SoundChannel;	import flash.media.SoundLoaderContext;	import flash.media.SoundTransform;	import flash.net.URLRequest;	import flash.utils.ByteArray;	import flash.utils.Timer;		import com.anttikupila.events.StreamingEvent;	import com.anttikupila.media.filters.IFilter;	
+	public class SoundFX extends Sound {
+
+		//---------------------------------------------------------------------
+		//
+		//  Constants
+		//
+		//---------------------------------------------------------------------
+
+		public static const SAMPLE_RATE : int = 44100;
+		public static const DEFAULT_OUTPUT_BUFFER : int = 2048;
+		public static const DEFAULT_NETWORK_BUFFER : Number = 1; // seconds
+
+		
+		//---------------------------------------------------------------------
+		//
+		//  Variables
+		//
+		//---------------------------------------------------------------------
+
+		private var output : Sound;
+		private var soundChannel : SoundChannel;
+		private var bufferTimer : Timer;
+
+		private var samples : ByteArray;
+		
+		private var loops : int;
+		private var soundTransform : SoundTransform;
+		private var buffering : Boolean;
+		private var sampleIndex : int = 0;
+
+		private var networkBuffer : Number;
+		private var outputBuffer : int;
+		private var _filtersLeft : Array;
+		private var _filtersRight : Array;
+		
+		private var _paused : Boolean = false;
+		
+		
+		//---------------------------------------------------------------------
+		//
+		//  Constructor
+		//
+		//---------------------------------------------------------------------
+
+		/**
+		 * @param stream File to load
+		 * @param context Context
+		 * @param networkBuffer Network buffer in seconds. Similar to the buffer in NetStream
+		 * @param outputBufferLength Output buffer in samples. If the output is choppy even if the network is smooth try increasing the output buffer
+		 */
+		public function SoundFX( stream : URLRequest = null, context : SoundLoaderContext = null, networkBufferSeconds : Number = DEFAULT_NETWORK_BUFFER, outputBufferLength : int = DEFAULT_OUTPUT_BUFFER ) {
+			samples = new ByteArray( );
+			output = new Sound( );
+			output.addEventListener( SampleDataEvent.SAMPLE_DATA, sampleDataHandler );
+			
+			outputBuffer = Math.max( outputBufferLength, 0 );
+			networkBuffer = Math.max( networkBufferSeconds, outputBuffer / SAMPLE_RATE );
+			
+			bufferTimer = new Timer( 50 );
+			bufferTimer.addEventListener( TimerEvent.TIMER, bufferTimerHandler );
+			
+			super( stream, context );
+		}
+		
+		
+		//---------------------------------------------------------------------
+		//
+		//  Protected methods
+		//
+		//---------------------------------------------------------------------
+		
+		private function startBuffering( ) : void {
+			if ( super.isBuffering || bytesLoaded < bytesTotal ) {
+				if ( !buffering ) { 
+					buffering = true;
+					bufferTimer.start( );
+					dispatchEvent( new StreamingEvent( StreamingEvent.BUFFER_EMPTY ) );
+				}
+				bufferTimerHandler( null );
+			}
+		}
+
+		
+		//---------------------------------------------------------------------
+		//
+		//  Events
+		//
+		//---------------------------------------------------------------------
+
+		private function sampleDataHandler( event : SampleDataEvent ) : void {
+			samples.position = 0;
+			var availableSampleCount : int = extract( samples, outputBuffer, sampleIndex );
+			samples.position = 0;
+			
+			if ( availableSampleCount < outputBuffer ) {
+				if ( !buffering ) startBuffering( );
+			}
+			
+			if ( buffering || availableSampleCount > 0 ) {
+				var left : Number,
+					right : Number,
+					filter : IFilter;
+				for ( var i : int = 0; i < Math.min( outputBuffer, availableSampleCount ); i++ ) {
+					if ( buffering || _paused ) {
+						// Input silence into filters
+						left = right = 0;
+					} else {
+						left = samples.readFloat( );
+						right = samples.readFloat( );
+					}
+					
+					for each ( filter in _filtersLeft ) {
+						left = filter.process( left );
+					}
+					for each ( filter in _filtersRight ) {
+						right = filter.process( right );
+					}
+					
+					event.data.writeFloat( left );
+					event.data.writeFloat( right );
+				}
+				
+				if ( !buffering && !_paused ) sampleIndex += outputBuffer;
+			}
+		}
+		
+		protected function bufferTimerHandler( event : TimerEvent ) : void {
+			if ( length * 0.001 - sampleIndex / SAMPLE_RATE >= networkBuffer ) { // convert length to milliseconds
+				trace( "Buffer full" );
+				bufferTimer.stop( );
+				buffering = false;
+				if ( soundChannel ) {
+					soundChannel.removeEventListener( Event.SOUND_COMPLETE, soundCompleteHandler );
+					soundChannel.stop( );
+				}
+				soundChannel = output.play( 0, loops, soundTransform );
+				soundChannel.addEventListener( Event.SOUND_COMPLETE, soundCompleteHandler );
+				dispatchEvent( new StreamingEvent( StreamingEvent.BUFFER_FULL ) );
+			}
+		}
+		
+		protected function soundCompleteHandler( event : Event ) : void {
+			if ( bytesLoaded >= bytesTotal ) dispatchEvent( event );
+		}
+
+		
+		//---------------------------------------------------------------------
+		//
+		//  Public methods
+		//
+		//---------------------------------------------------------------------
+
+		override public function play( startTime : Number = 0, loops : int = 0, sndTransform : SoundTransform = null ) : SoundChannel {
+			trace("SoundFX::play()");
+			this.loops = loops;
+			this.soundTransform = sndTransform;
+			seek( startTime );
+			startBuffering( );
+			return null;
+		}
+		
+		public function set filters( filters : Array ) : void {
+			_filtersLeft = filters;
+			_filtersRight = [ ];
+			for each (var filter : IFilter in _filtersLeft) {
+				_filtersRight.push( filter.duplicate( ) );
+			}
+		}
+
+		public function get filters( ) : Array {
+			return _filtersLeft;
+		}
+		
+		override public function get isBuffering( ) : Boolean {
+			return buffering;
+		}
+		
+		public function get position( ) : Number {
+			return sampleIndex / SAMPLE_RATE;
+		}
+		
+		public function get paused() : Boolean {
+			return _paused;
+		}
+		
+		public function set paused(paused : Boolean) : void {
+			_paused = paused;
+		}
+		
+		public function seek( seconds : Number ) : void {
+			sampleIndex = int( Math.min( length, seconds ) * SAMPLE_RATE );
+		}
+	}
+}

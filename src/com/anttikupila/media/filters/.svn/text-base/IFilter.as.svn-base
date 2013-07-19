@@ -1,0 +1,8 @@
+package com.anttikupila.media.filters
+{
+	public interface IFilter {
+		function process( input : Number ) : Number;
+		
+		function duplicate( ) : IFilter;
+	}
+}
