@@ -3,14 +3,11 @@ package
 	import com.adamgedney.ui.MantissaView;
 	
 	import flash.display.Sprite;
-<<<<<<< HEAD
 	import flash.events.ContextMenuEvent;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
-=======
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 	
 	[SWF(width="525", height="525", frameRate="60")]
 	public class Main extends Sprite
@@ -19,7 +16,6 @@ package
 		
 		public function Main()
 		{
-<<<<<<< HEAD
 			//instantiates display 
 			var synth:MantissaView;
 			synth = new MantissaView(stage);
@@ -42,17 +38,5 @@ package
 			navigateToURL(ur, "_blank");
 			
 		}
-=======
-			//instantiates display
-			var synth:MantissaView;
-			synth = new MantissaView(stage);
-			addChild(synth);
-			//synth.scaleX = synth.scaleY = .9
-			
-			synth.mask = synth.mc_mask;
-			
-			
-		}
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 	}
 }

@@ -2,7 +2,7 @@
 
 
 
-/* 	Copyright Adam Gedney 5/7/13
+/* 	Copyright Adam Gedney 7/18/13
 contact: adam.gedney@gmail.com
 http://adamgedney.com
 
@@ -57,11 +57,7 @@ ul {
 
 
 body{
-<<<<<<< HEAD
 	background: url("../images/crdbd.png")#faf9f3;
-=======
-	background: url("../images/crdbd.png") #faf9f3;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 	color: #c7c0b6;
 	font: 62.5% "Helvetica Neue Light", Helvetica, Arial, sans-serif;
 }
@@ -106,45 +102,36 @@ object:focus { outline:none; }
 .red-highlight{
 	color:#bf767e;
 }
-<<<<<<< HEAD
 
 
 
 /*--------------------------------------End General / Start Main------------------------------------*/
 
+.featured-img{
+	background: url("../images/synth.jpg") repeat-x #efefef;
+	width: 100%;
+}
 
 header{
 	opacity: .7;
 	background: url("../images/crdbd.png")#faf9f3;
-	//overflow:hidden;
-=======
-/*--------------------------------------End General / Start Main------------------------------------*/
-
-header{
-	opacity: .6;
-	background: url("../images/crdbd.png") #faf9f3;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 	padding: 0 40px;
 	height: 70px;
 	border-bottom: solid 1px #442f52;
 }
 
-<<<<<<< HEAD
-.row:nth-child(1){
- margin-bottom: 0;
-=======
 .logo{
-
+	max-width: 1140px;
+	margin: 0 auto;
 }
 
 .row:nth-child(1){
- 	margin-bottom: 0;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
+ margin-bottom: 0;
 }
 
 .landing{
-	background: url("../images/synth.jpg") #efefef;
-	min-width: 100%;
+	max-width: 1140px;
+	margin: 0 auto;
 	height: 575px;
 	padding-top: 28px;
 }
@@ -167,19 +154,15 @@ header{
 	float:right;
 }
 
-<<<<<<< HEAD
 .tip2{
 	display: none;
 }
 
-=======
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 #wrapper {
-	width: ${width}px;
-	float: right;
+	float: left;
 	max-width:525px;
 	height:525px;
-	margin-right: 100px;
+	margin-left: 10%;
 }
 
 img.accent{
@@ -189,13 +172,10 @@ img.accent{
 
 }
 .body-copy{
-<<<<<<< HEAD
-	color: #969696;
-=======
 	color: #686868;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
-	width: 50%;
-	margin: 0 25%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 0 5%;
 
 }
 .body-copy h2{
@@ -203,74 +183,36 @@ img.accent{
 	margin-bottom: 8px;
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 a.button{
-	display: inline-block;
+	display: block;
 	width: 175px;
 	height: 50px;
 	margin: 34px auto 200px;
-
-	background: #fceabb; /* Old browsers */
-	background: -moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fceabb), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=0 ); /* IE6-9 */
-
+	background: #bf767e; 
 	line-height: 2.2em;
 	padding-left: 17px;
 	font-size: 2.4em;
 	font-weight: 100;
-	color: #000;
+	color: #efefef;
 }
 
 a.button:hover{
-
-	background: #f8b500; /* Old browsers */
-	background: -moz-linear-gradient(top, #f8b500 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbdf93), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #f8b500 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #f8b500 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #f8b500 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #f8b500 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8b500', endColorstr='#fbdf93',GradientType=0 ); /* IE6-9 */
-
+	opacity: .6;
 	color: #fff;
 }
 
 footer{
 	height: 50px;
-<<<<<<< HEAD
-=======
+}
 
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
+.copyright{
+	width: 170px;
+	margin: 30px auto 30px;
 }
 
 .copyright p{
-	display: block;
-	width: 15%;
-<<<<<<< HEAD
-=======
-	padding-left: 2%;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
-	margin: 30px auto 30px;
 	font-weight: 100;
 	color: #969696;
-}
-
-<<<<<<< HEAD
-@media (max-width: 1090px){
-
-.copyright p{
-	width: 19%;
-}
-
 }
 
 @media (max-width: 1065px){
@@ -312,8 +254,18 @@ a.button{
 
 @media (max-width: 766px){
 
+.tip2{
+	display: none;
+}
+
+
 #wrapper{
-	margin: 100px 20% 0;
+	margin: 140px 5% 0;
+	height: auto;
+}
+
+#movie{
+	margin-left: 25%;
 }
 
 img.altFlash{
@@ -321,9 +273,14 @@ img.altFlash{
 }
 
 .body-copy{
-	width: 70%;
-	margin: 0 15%;
+	width: 96%;
+	margin: 0 2%;
 
+}
+
+.accent{
+	width: 200px;
+	height: 38px;
 }
 
 a.button{
@@ -334,38 +291,6 @@ a.button{
 	margin-right: auto;
 }
 
-.copyright p{
-	width: 36%;
-}
-
-
-}
-
-@media (max-width: 766px){
-
-#wrapper{
-	height: 325px;
-}
-
-img.altFlash{
-	max-width: 50%;
-}
-
-.accent{
-	width: 200px;
-	height: 38px;
-}
-
-a.button{
-	margin-bottom: 60px;
-	width: 175px;
-	margin-left: 20%;
-}
-
-.copyright p{
-	width: 46%;
-}
-
 }
 
 
@@ -374,8 +299,7 @@ a.button{
 
 
 
-=======
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
+
 
 
 

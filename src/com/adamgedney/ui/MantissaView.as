@@ -426,11 +426,7 @@ package com.adamgedney.ui
 			
 			
 			volumeSlider(int(_vSlide.getPCT())/10);
-<<<<<<< HEAD
 			
-=======
-			//attackSlider(int(_aSlide.getPCT())/10);
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 			//trace(int(_vSlide.getPCT())/10);
 		}
 		
@@ -451,11 +447,7 @@ package com.adamgedney.ui
 		//volume slider functionality
 		private function volumeSlider(vol:Number=0.5):void
 		{
-<<<<<<< HEAD
 			if(vol > 1 || vol == 0){
-=======
-			if(vol > 1){
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 				vol = 1;
 			}if(vol == .1){
 				vol = 0;

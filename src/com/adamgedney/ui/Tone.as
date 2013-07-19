@@ -30,11 +30,7 @@ package com.adamgedney.ui
 		{
 			var amp:Number = 1.0;
 			var i:int = 0;
-<<<<<<< HEAD
 			var mult:Number = _frequency / RATE * Math.PI * 2;
-=======
-			var mult:Number = frequency / RATE * Math.PI * 2;
->>>>>>> 3ccb1cf91ac3f7c63f6b36f4a94a502a91823e4d
 			while(amp > 0.01)
 			{
 				samples[i] = Math.sin(i * mult) * amp;
